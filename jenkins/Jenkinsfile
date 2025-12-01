@@ -1,0 +1,25 @@
+pipeline {
+   agent any
+   stages {
+      stage('Pull Code') {
+         steps {
+            git branch: 'main',
+                url: 'git@github.com:nhatky82/day27-build-deploy.git',
+                credentialsId: 'day27_ssh_key'
+            }
+        }
+      stage('Build') {
+          steps {
+             echo "Build (Khong co gi de build)"
+          }
+       }
+      stage('Deploy') {
+          steps {
+             sh '''
+             chmod +x ~/Day27_Build_Deploy/deploy/deploy.sh
+             ~/Day27_Build_Deploy/deploy/deploy.sh
+             '''
+          }
+         }
+      }
+}
